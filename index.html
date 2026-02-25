@@ -3,369 +3,479 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Sammy Alexito FF Diamantes - Sorteo</title>
+  <title>Sammy Alexito FF Diamantes</title>
   <style>
     :root{
-      --bg:#0b0f1a;
-      --accent:#ffcc00;
-      --glass: rgba(255,255,255,0.06);
+      --bg:#0b0f17;
       --card:#0f1724;
-      --neon: #00e5ff;
+      --accent:#ffb84d;
+      --accent-2:#ff4d6d;
+      --glass: rgba(255,255,255,0.04);
+      --glass-2: rgba(255,255,255,0.02);
+      --text:#e6eef8;
+      --muted:#9fb0d1;
+      --accent-strong:#ff6b88;
     }
-    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body{
-      background: radial-gradient(ellipse at 10% 10%, rgba(255,204,0,0.06), transparent 10%),
-                  radial-gradient(ellipse at 90% 90%, rgba(0,229,255,0.03), transparent 10%),
-                  var(--bg);
-      color:#e6eef8;
+      margin:0;
+      font-family:Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 10% 10%, rgba(255,77,109,0.06), transparent 8%),
+        radial-gradient(900px 400px at 90% 90%, rgba(255,184,77,0.04), transparent 6%),
+        var(--bg);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
       display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:32px;
-      box-sizing:border-box;
+      flex-direction:column;
+      min-height:100vh;
     }
 
-    .container{
+    /* Page layout */
+    .page-wrap{
       width:100%;
-      max-width:980px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:16px;
-      padding:28px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+      max-width:1100px;
+      margin:28px auto 96px; /* leave space for fixed footer */
+      padding:0 18px;
       display:grid;
-      grid-template-columns: 1fr 420px;
+      grid-template-columns: 1fr 360px;
       gap:24px;
-      align-items:center;
+      align-items:start;
     }
 
-    /* Left hero */
-    .hero{
-      padding:18px;
+    @media (max-width:980px){
+      .page-wrap{grid-template-columns:1fr; margin-bottom:140px}
+    }
+
+    .card{
+      background:linear-gradient(180deg,var(--card), #0b1220 120%);
+      border-radius:14px;
+      padding:22px;
+      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    /* Header area with logo + title + winners ticket */
+    .header{
+      display:flex;
+      gap:16px;
+      align-items:center;
+      margin-bottom:14px;
     }
 
     .logo{
-      width:160px;
-      height:160px;
-      background:linear-gradient(135deg,#ffcc00,#ff6b6b);
+      width:72px;
+      height:72px;
+      flex:0 0 72px;
       border-radius:12px;
+      overflow:hidden;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
       display:flex;
       align-items:center;
       justify-content:center;
-      overflow:hidden;
-      box-shadow: 0 8px 30px rgba(255,204,0,0.08), inset 0 -6px 18px rgba(0,0,0,0.25);
+      box-shadow:0 6px 18px rgba(255,77,109,0.12), inset 0 -6px 18px rgba(0,0,0,0.2);
     }
-    .logo img{width:100%;height:100%;object-fit:contain;display:block;}
+    .logo img{width:100%;height:100%;object-fit:cover;display:block}
 
-    /* Epic animated title */
+    .title-wrap{display:flex;flex-direction:column;gap:6px}
+
     .title{
-      margin-top:18px;
       font-weight:900;
-      font-size:44px;
+      font-size:28px;
+      letter-spacing:1px;
       line-height:1;
-      letter-spacing: -1px;
-      text-transform:uppercase;
-      display:flex;
-      gap:12px;
-      align-items:center;
-    }
-
-    .title .word{
-      position:relative;
       display:inline-block;
-      padding:6px 12px;
-      border-radius:8px;
-      background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      transform-origin:center;
-      animation: float 4s ease-in-out infinite;
-      box-shadow: 0 6px 30px rgba(0,0,0,0.6), 0 0 18px rgba(0,229,255,0.06);
+      background:linear-gradient(90deg,#fff 0%, #ffd27a 20%, #ff7a9a 60%, #fff 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      text-transform:uppercase;
+      transform:skewX(-6deg);
+      padding:6px 10px;
+      filter:drop-shadow(0 6px 18px rgba(255,77,109,0.12));
+      animation:glow 2.6s ease-in-out infinite;
+    }
+    @keyframes glow{
+      0%{filter:drop-shadow(0 6px 18px rgba(255,77,109,0.08))}
+      50%{filter:drop-shadow(0 10px 30px rgba(255,184,77,0.18))}
+      100%{filter:drop-shadow(0 6px 18px rgba(255,77,109,0.08))}
     }
 
-    .title .word:nth-child(1){ color:var(--accent); text-shadow:0 0 18px rgba(255,204,0,0.25); animation-delay:0s;}
-    .title .word:nth-child(2){ color:#fff; text-shadow:0 0 18px rgba(0,229,255,0.08); animation-delay:0.2s;}
-    .title .word:nth-child(3){ color:var(--neon); text-shadow:0 0 22px rgba(0,229,255,0.18); animation-delay:0.4s;}
+    .subtitle{color:var(--muted);font-size:13px;display:flex;gap:8px;align-items:center}
+    .flame{width:10px;height:10px;border-radius:50%;background:linear-gradient(180deg,#ff4d6d,#ffb84d);box-shadow:0 0 12px rgba(255,77,109,0.6);animation:flame 1s linear infinite}
+    @keyframes flame{0%{transform:translateY(0) scale(1)}50%{transform:translateY(-6px) scale(1.15)}100%{transform:translateY(0) scale(1)}}
 
-    @keyframes float{
-      0%{ transform: translateY(0) rotate(-1deg) scale(1); }
-      50%{ transform: translateY(-8px) rotate(1deg) scale(1.02); }
-      100%{ transform: translateY(0) rotate(-1deg) scale(1); }
-    }
-
-    .subtitle{
-      margin-top:12px;
-      font-size:14px;
-      color: #cfe9ff;
-      opacity:0.9;
-    }
-
-    /* Right card */
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:12px;
-      padding:18px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
-    }
-
-    form{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
-
-    label{ font-size:13px; color:#cfe9ff; font-weight:600; }
-    input[type="text"], input[type="email"]{
-      width:100%;
-      padding:12px 14px;
-      border-radius:10px;
+    /* Winners ticket (small card in header) */
+    .winners-ticket{
+      margin-left:auto;
+      background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
       border:1px solid rgba(255,255,255,0.04);
-      background:var(--glass);
-      color: #eaf6ff;
-      outline:none;
-      transition: box-shadow .18s, transform .12s;
-      font-size:15px;
-    }
-    input:focus{ box-shadow: 0 6px 30px rgba(0,0,0,0.6), 0 0 18px rgba(0,229,255,0.06); transform: translateY(-2px); }
-
-    .note{ font-size:12px; color:#9fbfe6; margin-top:6px; }
-
-    .actions{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      margin-top:6px;
-    }
-
-    .btn{
-      padding:12px 16px;
+      padding:10px 14px;
       border-radius:10px;
-      border:0;
-      cursor:pointer;
-      font-weight:700;
-      color:#071126;
-      background: linear-gradient(90deg,var(--accent),#ff9a00);
-      box-shadow: 0 8px 30px rgba(255,170,0,0.12);
-      transition: transform .12s, opacity .12s;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      min-width:220px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.5);
     }
-    .btn:active{ transform: translateY(2px); }
-    .btn.secondary{
-      background:transparent;
-      color:#cfe9ff;
-      border:1px solid rgba(255,255,255,0.06);
-      font-weight:700;
+    .ticket-title{font-weight:800;color:var(--accent-2);font-size:13px;text-transform:uppercase}
+    .ticket-list{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted)}
+    .ticket-list span{display:flex;justify-content:space-between;gap:8px}
+    .ticket-badge{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#08101a;padding:6px 8px;border-radius:8px;font-weight:800;font-size:12px}
+
+    /* Main form */
+    .main-card{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent)}
+    label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+    input[type="text"], input[type="email"]{
+      width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:linear-gradient(180deg,var(--glass),var(--glass-2));color:var(--text);outline:none;font-size:15px
     }
+    .hint{font-size:13px;color:var(--muted);margin-top:6px}
 
-    .small{ font-size:13px; color:#9fbfe6; }
+    .paypal-area{margin-top:12px;display:none}
 
-    .status{
-      margin-top:10px;
+    .info-card{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03)}
+
+    .prizes{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+    .prize{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:8px;background:linear-gradient(90deg, rgba(255,255,255,0.01), transparent);font-weight:700}
+    .muted-small{font-size:13px;color:var(--muted);font-weight:500}
+
+    .btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#08101a;padding:10px 14px;border-radius:10px;font-weight:700;border:none;cursor:pointer;box-shadow:0 8px 24px rgba(255,77,109,0.12)}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text);font-weight:600}
+    .small{font-size:13px;padding:8px 10px;border-radius:8px}
+
+    /* Modal */
+    .modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(2,6,23,0.6);backdrop-filter:blur(4px);z-index:9999;display:none}
+    .modal .modal-card{width:100%;max-width:520px;background:var(--card);padding:20px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+
+    /* Footer fixed to bottom */
+    .site-footer{
+      position:fixed;
+      left:0;
+      right:0;
+      bottom:0;
+      background:linear-gradient(180deg, rgba(2,6,23,0.9), rgba(2,6,23,0.95));
+      border-top:1px solid rgba(255,255,255,0.02);
+      padding:12px 18px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      z-index:1000;
+    }
+    .site-footer .inner{
+      width:100%;
+      max-width:1100px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      color:var(--muted);
       font-size:13px;
-      color:#bfe6c9;
-      min-height:20px;
+    }
+    .site-footer .inner .left{display:flex;gap:8px;align-items:center}
+    .site-footer .inner .right{color:var(--muted);font-weight:600}
+
+    @media (max-width:640px){
+      .header{align-items:flex-start;gap:12px}
+      .winners-ticket{min-width:unset;margin-left:0;order:3;width:100%;justify-content:space-between}
+      .page-wrap{margin-bottom:160px}
+      .site-footer .inner{flex-direction:column;gap:6px;align-items:center}
     }
 
-    /* PayPal container styling */
-    #paypal-button-container{
-      margin-top:12px;
-    }
-
-    /* Responsive */
-    @media (max-width:900px){
-      .container{ grid-template-columns: 1fr; padding:18px; }
-      .logo{ width:120px;height:120px; }
-      .title{ font-size:32px; }
-    }
   </style>
 </head>
 <body>
-  <div class="container" role="main">
-    <div class="hero" aria-labelledby="hero-title">
-      <div class="logo" aria-hidden="true">
-        <!-- Asegúrate de subir logoalexito.png al mismo directorio -->
-        <img src="logoalexito.png" alt="Logo Sammy Alexito" />
+  <!-- Page content -->
+  <div class="page-wrap" id="page-wrap">
+    <!-- Left: main card -->
+    <div class="card main-card">
+      <div class="header">
+        <div class="logo">
+          <img src="logoalexito.png" alt="Logo Sammy Alexito">
+        </div>
+
+        <div class="title-wrap">
+          <div class="title">Sammy Alexito</div>
+          <div class="subtitle"><span class="flame" aria-hidden="true"></span><span>FF Diamantes — Sorteos oficiales</span></div>
+        </div>
+
+        <!-- Winners ticket in header (shows current winners) -->
+        <div class="winners-ticket" id="winners-ticket" aria-live="polite">
+          <div>
+            <div class="ticket-title">Ganadores</div>
+            <div class="ticket-list" id="ticket-list">
+              <span><strong>1º</strong><em style="margin-left:8px">—</em><strong style="margin-left:auto">—</strong></span>
+              <span><strong>2º</strong><em style="margin-left:8px">—</em><strong style="margin-left:auto">—</strong></span>
+              <span><strong>3º</strong><em style="margin-left:8px">—</em><strong style="margin-left:auto">—</strong></span>
+            </div>
+          </div>
+          <div class="ticket-badge" id="ticket-badge">Ticket</div>
+        </div>
       </div>
 
-      <h1 class="title" id="hero-title" aria-hidden="false">
-        <span class="word">Sammy</span>
-        <span class="word">Alexito</span>
-        <span class="word">FF Diamantes</span>
-      </h1>
+      <!-- Form -->
+      <div style="margin-top:6px">
+        <label for="ffid"><strong>ID Free Fire</strong></label>
+        <input id="ffid" type="text" placeholder="Ingresa tu ID de Free Fire" autocomplete="off" />
 
-      <p class="subtitle">Participa en el sorteo épico de diamantes. Rellena tu ID de Free Fire y tu correo. Paga con PayPal para confirmar tu participación.</p>
+        <div style="height:12px"></div>
 
-      <p class="note">Diseño inspirado en estética de juegos battle royale. Este formulario prepara los datos para enviarlos por correo tras la confirmación de pago.</p>
+        <label for="email"><strong>Correo electrónico</strong></label>
+        <input id="email" type="email" placeholder="tu@correo.com" autocomplete="email" />
+        <div class="hint">Al completar ambos campos aparecerá la opción para comprar un ticket por PayPal.</div>
+
+        <div class="paypal-area" id="paypal-area" aria-hidden="true">
+          <!-- PayPal SDK + hosted button (fragment provisto por el usuario) -->
+          <script 
+            src="https://www.paypal.com/sdk/js?client-id=BAAbZF0JaGjF7ZxeCXdcpHD7LWQJiWrhv8xvkfH2T2vb5ohXM_rzJKl5TSsrB33Y1LPSzd0GoWAvj_PgGo&components=hosted-buttons&disable-funding=venmo&currency=USD">
+          </script>
+
+          <div id="paypal-container-BEAE8YMR74H8U" style="margin-top:12px"></div>
+
+          <script>
+            (function renderHosted(){
+              function tryRender(){
+                if (window.paypal && paypal.HostedButtons) {
+                  try {
+                    paypal.HostedButtons({
+                      hostedButtonId: "BEAE8YMR74H8U",
+                    }).render("#paypal-container-BEAE8YMR74H8U");
+                  } catch(e){
+                    console.warn('PayPal render error', e);
+                  }
+                } else {
+                  setTimeout(tryRender, 500);
+                }
+              }
+              tryRender();
+            })();
+          </script>
+
+          <div class="hint" style="margin-top:10px">Si completaste el pago, haz clic en Confirmar compra para validar y enviar tu ID y correo al organizador.</div>
+
+          <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
+            <button class="btn small" id="confirm-purchase">Confirmar compra</button>
+            <button class="btn ghost small" id="cancel-purchase">Cancelar</button>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <aside class="card" aria-label="Formulario de participación">
-      <form id="entryForm" autocomplete="off" novalidate>
-        <div>
-          <label for="ffId">ID de Free Fire</label>
-          <input id="ffId" name="ffId" type="text" placeholder="Ejemplo: 123456789" required />
-        </div>
+    <!-- Right: info / prizes -->
+    <aside class="card info-card">
+      <h3 style="margin:0 0 8px 0">Premios</h3>
+      <div class="prizes">
+        <div class="prize"><span>1er lugar</span><span>5000 diamantes</span></div>
+        <div class="prize"><span>2do lugar</span><span>1000 diamantes</span></div>
+        <div class="prize"><span>3er lugar</span><span>500 diamantes</span></div>
+      </div>
 
-        <div>
-          <label for="email">Correo electrónico</label>
-          <input id="email" name="email" type="email" placeholder="tu@correo.com" required />
-        </div>
+      <div style="margin-top:14px" class="muted-small">Si juegas por primera vez y no ganas, puedes jugar una segunda vez comprando otro ticket. Si en la segunda vez no ganas, te llevas <strong>300 diamantes</strong>.</div>
 
-        <div class="note small">Antes de enviar, debes completar el pago con PayPal. Tras el pago se abrirá tu cliente de correo para enviar los datos a la organización.</div>
+      <div style="margin-top:16px" class="muted-small"><strong>Cómo participar</strong><br>Ingresa tu ID y correo, compra un ticket por PayPal y confirma la compra para validar tu participación.</div>
 
-        <div class="actions">
-          <button type="button" id="previewBtn" class="btn secondary">Previsualizar datos</button>
-          <button type="submit" id="sendBtn" class="btn" disabled>Enviar ahora</button>
-        </div>
+      <div style="margin-top:18px" class="muted-small">Contacto del organizador: <strong>akingalpha1282@gmail.com</strong></div>
 
-        <div id="paypal-section" style="margin-top:12px;">
-          <div id="paypal-button-container"></div>
-        </div>
+      <div style="margin-top:18px;display:flex;gap:8px;align-items:center">
+        <button class="btn" id="how-it-works">Cómo funciona</button>
+        <button class="btn ghost" id="terms">Términos</button>
+      </div>
 
-        <div class="status" id="status" aria-live="polite"></div>
-      </form>
+      <div style="margin-top:12px" class="side-note">Por 1 dólar puedes ganar los premios listados arriba. Compra responsable.</div>
     </aside>
   </div>
 
-  <!-- PayPal SDK con client-id proporcionado -->
-  <script
-    src="https://www.paypal.com/sdk/js?client-id=BAAbZF0JaGjF7ZxeCXdcpHD7LWQJiWrhv8xvkfH2T2vb5ohXM_rzJKl5TSsrB33Y1LPSzd0GoWAvj_PgGo&currency=USD">
-  </script>
+  <!-- Modal -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card">
+      <h3 style="margin-top:0">Confirmar compra</h3>
+      <p style="color:var(--muted)">Para completar la validación, confirma que realizaste el pago. En producción se debe validar el pago con IPN o Webhook de PayPal. Aquí se envía la información al organizador tras la confirmación.</p>
+      <div style="display:flex;gap:10px;margin-top:12px;justify-content:flex-end">
+        <button class="btn ghost small" id="modal-cancel">Volver</button>
+        <button class="btn small" id="modal-send">Enviar y validar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer fijo en la parte inferior -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="inner">
+      <div class="left">
+        <div>Creado por <strong>sammyalexitoff</strong></div>
+      </div>
+      <div class="right">
+        © <span id="year"></span> Todos los derechos reservados
+      </div>
+    </div>
+  </footer>
 
   <script>
-    // Configuración
-    const RECEIVER_EMAIL = "akingalpha1282@gmail.com";
-    const form = document.getElementById("entryForm");
-    const ffIdInput = document.getElementById("ffId");
-    const emailInput = document.getElementById("email");
-    const statusEl = document.getElementById("status");
-    const sendBtn = document.getElementById("sendBtn");
-    const previewBtn = document.getElementById("previewBtn");
+    // Insert current year in footer
+    (function setYear(){
+      const y = new Date().getFullYear();
+      document.getElementById('year').textContent = y;
+    })();
 
-    let paymentCompleted = false;
-    let lastPaymentInfo = null;
+    // Elements
+    const ffidInput = document.getElementById('ffid');
+    const emailInput = document.getElementById('email');
+    const paypalArea = document.getElementById('paypal-area');
+    const confirmBtn = document.getElementById('confirm-purchase');
+    const cancelBtn = document.getElementById('cancel-purchase');
+    const modal = document.getElementById('modal');
+    const modalCancel = document.getElementById('modal-cancel');
+    const modalSend = document.getElementById('modal-send');
 
-    // Validación simple
-    function validateForm(){
-      const ff = ffIdInput.value.trim();
-      const em = emailInput.value.trim();
-      if(!ff || !em) return false;
-      // email básico
-      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return re.test(em);
+    // Winners ticket elements
+    const ticketList = document.getElementById('ticket-list');
+
+    // Example: cargar ganadores iniciales (puede venir de servidor)
+    // Formato: [{pos:1,name:'Player1'},{pos:2,name:'Player2'},{pos:3,name:'Player3'}]
+    const initialWinners = [
+      {pos:1, name:'—'},
+      {pos:2, name:'—'},
+      {pos:3, name:'—'}
+    ];
+
+    function renderWinners(winners){
+      // Clear and render
+      ticketList.innerHTML = '';
+      winners.forEach(w => {
+        const span = document.createElement('span');
+        span.innerHTML = `<strong>${w.pos}º</strong><em style="margin-left:8px">${w.name}</em>`;
+        ticketList.appendChild(span);
+      });
     }
 
-    previewBtn.addEventListener("click", () => {
-      if(!validateForm()){
-        statusEl.textContent = "Por favor completa correctamente ID de Free Fire y correo.";
-        statusEl.style.color = "#ffb3b3";
-        return;
-      }
-      statusEl.style.color = "#bfe6c9";
-      statusEl.textContent = `ID: ${ffIdInput.value.trim()} · Correo: ${emailInput.value.trim()}. Pulsa pagar con PayPal para confirmar.`;
-    });
+    // Render initial winners
+    renderWinners(initialWinners);
 
-    // Renderizamos botón PayPal con flujo client-side
-    paypal.Buttons({
-      style: {
-        layout: 'vertical',
-        color:  'gold',
-        shape:  'rect',
-        label:  'paypal'
-      },
-      createOrder: function(data, actions) {
-        // Aquí definimos un pago simbólico. Ajusta el monto según tu necesidad.
-        return actions.order.create({
-          purchase_units: [{
-            amount: {
-              value: '1.00'
-            },
-            description: 'Confirmación participación Sammy Alexito FF Diamantes'
-          }]
-        });
-      },
-      onApprove: function(data, actions) {
-        // Capturamos la orden y marcamos pago completado
-        return actions.order.capture().then(function(details) {
-          paymentCompleted = true;
-          lastPaymentInfo = details;
-          statusEl.style.color = "#bfe6c9";
-          statusEl.textContent = "Pago completado. Preparando envío de datos al organizador.";
-          // Habilitar botón de envío
-          sendBtn.disabled = false;
-          // Opcional: enviar automáticamente abriendo cliente de correo
-          setTimeout(() => {
-            triggerMailTo(true);
-          }, 800);
-        });
-      },
-      onCancel: function (data) {
-        statusEl.style.color = "#ffd9a8";
-        statusEl.textContent = "Pago cancelado. No se enviaron los datos.";
-      },
-      onError: function (err) {
-        console.error(err);
-        statusEl.style.color = "#ffb3b3";
-        statusEl.textContent = "Ocurrió un error con PayPal. Intenta de nuevo.";
-      }
-    }).render('#paypal-button-container');
-
-    // Construye y abre mailto con los datos del formulario y la info de pago
-    function triggerMailTo(autoOpen){
-      if(!validateForm()){
-        statusEl.style.color = "#ffb3b3";
-        statusEl.textContent = "Completa los campos antes de enviar.";
-        return;
-      }
-
-      // Preparar cuerpo del correo
-      const ffId = encodeURIComponent(ffIdInput.value.trim());
-      const userEmail = encodeURIComponent(emailInput.value.trim());
-      let body = `Registro para Sorteo Sammy Alexito FF Diamantes%0A%0AID Free Fire: ${ffId}%0ACorreo del participante: ${userEmail}%0A%0A`;
-
-      if(paymentCompleted && lastPaymentInfo){
-        const payer = lastPaymentInfo.payer || {};
-        const payerName = encodeURIComponent((payer.name && payer.name.given_name ? payer.name.given_name : '') + ' ' + (payer.name && payer.name.surname ? payer.name.surname : ''));
-        const orderId = encodeURIComponent(lastPaymentInfo.id || '');
-        const amount = encodeURIComponent((lastPaymentInfo.purchase_units && lastPaymentInfo.purchase_units[0] && lastPaymentInfo.purchase_units[0].amount && lastPaymentInfo.purchase_units[0].amount.value) || '');
-        body += `Pago confirmado con PayPal%0AOrder ID: ${orderId}%0APagador: ${payerName}%0AImporte: ${amount} USD%0A%0A`;
+    // Validate fields to show PayPal area
+    function validateFields(){
+      const ffid = ffidInput.value.trim();
+      const email = emailInput.value.trim();
+      const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (ffid.length >= 3 && emailValid){
+        paypalArea.style.display = 'block';
+        paypalArea.setAttribute('aria-hidden','false');
       } else {
-        body += `Pago: No confirmado%0A%0A`;
-      }
-
-      body += `Aviso: Este correo fue generado desde el formulario de la web.`;
-
-      const subject = encodeURIComponent("Registro Sammy Alexito FF Diamantes");
-      const mailto = `mailto:${RECEIVER_EMAIL}?subject=${subject}&body=${body}`;
-
-      // Si autoOpen true abrimos el cliente de correo. Si no, dejamos que el usuario pulse Enviar ahora.
-      if(autoOpen){
-        window.location.href = mailto;
-        statusEl.textContent = "Se abrió tu cliente de correo para enviar los datos. Revisa y pulsa enviar.";
-      } else {
-        // Dejar el mailto en el botón enviar para que el usuario lo active manualmente
-        sendBtn.onclick = function(e){
-          e.preventDefault();
-          window.location.href = mailto;
-          statusEl.textContent = "Se abrió tu cliente de correo para enviar los datos. Revisa y pulsa enviar.";
-        };
+        paypalArea.style.display = 'none';
+        paypalArea.setAttribute('aria-hidden','true');
       }
     }
 
-    // Envío por formulario: si el pago ya fue completado, abrimos mailto
-    form.addEventListener("submit", function(e){
-      e.preventDefault();
-      if(!validateForm()){
-        statusEl.style.color = "#ffb3b3";
-        statusEl.textContent = "Completa correctamente los campos antes de enviar.";
-        return;
-      }
-      if(!paymentCompleted){
-        statusEl.style.color = "#ffd9a8";
-        statusEl.textContent = "Debes completar el pago con PayPal antes de enviar.";
-        return;
-      }
-      // Abrir cliente de correo con los datos y la info de pago
-      triggerMailTo(true);
+    ffidInput.addEventListener('input', validateFields);
+    emailInput.addEventListener('input', validateFields);
+
+    // Open modal
+    confirmBtn.addEventListener('click', () => {
+      modal.style.display = 'flex';
+      modal.setAttribute('aria-hidden','false');
     });
 
-    // Inicialmente el botón enviar está deshabilitado hasta pago completado
-    sendBtn.disabled = true;
+    cancelBtn.addEventListener('click', () => {
+      paypalArea.style.display = 'none';
+      paypalArea.setAttribute('aria-hidden','true');
+    });
+
+    modalCancel.addEventListener('click', () => {
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden','true');
+    });
+
+    // On confirm send: attempt to POST to server; fallback to mailto
+    modalSend.addEventListener('click', async () => {
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden','true');
+      const ffid = ffidInput.value.trim();
+      const email = emailInput.value.trim();
+
+      const payload = {
+        ffid,
+        email,
+        ticketPriceUSD: 1,
+        hostedButtonId: "BEAE8YMR74H8U",
+        timestamp: new Date().toISOString()
+      };
+
+      // IMPORTANT: Replace the URL below with your server endpoint that verifies PayPal payment (IPN/Webhook)
+      // and sends the email to akingalpha1282@gmail.com only after verification.
+      try {
+        const resp = await fetch('https://your-server.example/send-email', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify(payload)
+        });
+
+        if (resp.ok){
+          alert('Gracias. Tu participación fue registrada y se notificó al organizador.');
+        } else {
+          // Fallback: open mail client with details
+          const subject = encodeURIComponent('Nuevo ticket - Sammy Alexito FF Diamantes');
+          const body = encodeURIComponent(`ID Free Fire: ${ffid}\nCorreo: ${email}\nTicket: $1 USD\nHostedButtonId: BEAE8YMR74H8U\nFecha: ${payload.timestamp}`);
+          window.location.href = `mailto:akingalpha1282@gmail.com?subject=${subject}&body=${body}`;
+        }
+      } catch (err){
+        const subject = encodeURIComponent('Nuevo ticket - Sammy Alexito FF Diamantes');
+        const body = encodeURIComponent(`ID Free Fire: ${ffid}\nCorreo: ${email}\nTicket: $1 USD\nHostedButtonId: BEAE8YMR74H8U\nFecha: ${payload.timestamp}`);
+        window.location.href = `mailto:akingalpha1282@gmail.com?subject=${subject}&body=${body}`;
+      }
+    });
+
+    // Allow Enter to validate and open modal if PayPal visible
+    [ffidInput, emailInput].forEach(el => {
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          validateFields();
+          if (paypalArea.style.display === 'block') {
+            modal.style.display = 'flex';
+            modal.setAttribute('aria-hidden','false');
+          }
+        }
+      });
+    });
+
+    // Side buttons
+    document.getElementById('how-it-works').addEventListener('click', () => {
+      alert('Compra un ticket por $1 USD. Tras el pago confirma aquí para que el organizador reciba tu ID y correo. El organizador validará el pago y te incluirá en el sorteo.');
+    });
+    document.getElementById('terms').addEventListener('click', () => {
+      alert('Términos: Participación válida solo con pago confirmado. El organizador se reserva el derecho de verificar transacciones. Juego responsable.');
+    });
+
+    // Example: función para actualizar ganadores desde servidor (simulada)
+    // En producción, llamar a un endpoint que devuelva los ganadores y luego renderWinners(data)
+    async function fetchWinners(){
+      // Simulación: después de 1s, mostrar nombres de ejemplo
+      setTimeout(() => {
+        const winners = [
+          {pos:1, name:'14160952359'},
+          {pos:2, name:'12907558907'},
+          {pos:3, name:'14082581715'}
+        ];
+        renderWinners(winners);
+      }, 1000);
+    }
+
+    // Llamada inicial para poblar ganadores (puede reemplazarse por fetch real)
+    fetchWinners();
+
+    // Accessibility: close modal with Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (modal.style.display === 'flex') {
+          modal.style.display = 'none';
+          modal.setAttribute('aria-hidden','true');
+        }
+      }
+    });
+
+    // Nota de seguridad para desarrolladores:
+    // 1) Verificar pagos en servidor con PayPal IPN/Webhook antes de marcar participación como válida.
+    // 2) Enviar correo desde servidor a akingalpha1282@gmail.com solo tras verificación.
+    // 3) No confiar en datos enviados desde el cliente para validar transacciones.
   </script>
 </body>
 </html>
